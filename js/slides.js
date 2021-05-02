@@ -11,32 +11,40 @@ slides.forEach((slide) => {
     zIndex -= 1;
   });
 
-  const tl = gsap.timeline();
+  // set opacity of images to zero then wait for them to load before running timeline
+  gsap.set(images, { opacity: 0 });
 
-  // intro animation for images
-  tl.set(images, {
-    y: "500%",
-    x: () => 800 - Math.random() * 1600,
-    rotation: () => 20 - Math.random() * 40,
-  })
-    .to(images, {
-      x: 0,
-      y: 0,
-      stagger: -0.5,
-      duration: 0.75,
-      delay: 1,
+  imagesLoaded(images, function () {
+    const tl = gsap.timeline();
+
+    // intro animation for images
+    tl.set(images, {
+      y: "500%",
+      x: () => 800 - Math.random() * 1600,
+      rotation: () => 20 - Math.random() * 40,
+      opacity: 1,
     })
-    .to(images, {
-      rotation: () => 10 - Math.random() * 20,
-      stagger: 0.15,
-    });
+      .to(images, {
+        x: 0,
+        y: 0,
+        stagger: -0.5,
+        duration: 0.75,
+        delay: 1,
+      })
+      .to(images, {
+        rotation: () => 10 - Math.random() * 20,
+        stagger: 0.15,
+      });
+  });
 
   // On click events
   slide.addEventListener("click", function (e) {
+    // reduce the zindex counter
     zIndex -= 1;
 
     const current = images[currentImage % images.length];
 
+    // randomize the direction of flip
     let direction = "150%";
 
     if (Math.random() > 0.5) {
