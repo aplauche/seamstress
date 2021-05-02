@@ -35,9 +35,22 @@ slides.forEach((slide) => {
   slide.addEventListener("click", function (e) {
     zIndex -= 1;
 
-    const clickTl = gsap.timeline();
+    const current = images[currentImage % images.length];
 
-    clickTl.images[currentImage % images.length].style.zIndex = zIndex;
+    let direction = "150%";
+
+    if (Math.random() > 0.5) {
+      direction = "-150%";
+    }
+
+    const clickTl = gsap.timeline();
+    clickTl
+      .set(current, { x: 0 })
+      .to(current, { x: direction, rotation: () => 20 - Math.random() * 40 })
+      .set(current, { zIndex: zIndex })
+      .to(current, { x: 0, rotation: () => 10 - Math.random() * 20 });
+
+    // current.style.zIndex = zIndex;
     currentImage += 1;
   });
 });

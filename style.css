@@ -13,14 +13,18 @@ body {
 }
 
 header {
-  position: fixed;
+  position: relative;
   top: 8px;
   left: 0;
-  width: 100%;
+  width: 110%;
   overflow: hidden;
   font-size: 16px;
   font-variation-settings: "wght" 800;
   z-index: 1000000000001;
+  background: white;
+  color: black;
+  transform: rotate(3deg) translateY(50px);
+  margin-bottom: 40px;
 }
 
 header h1,
@@ -95,6 +99,8 @@ section a {
   border-radius: 50px;
   display: inline-flex;
   align-items: center;
+  transition: all 0.5s;
+  transform: rotate(2deg);
 }
 
 section a img {
@@ -106,6 +112,10 @@ section a img {
   transition: width 0.25s;
 }
 
+section a:hover {
+  border-radius: 0px;
+  transform: rotate(-5deg);
+}
 section a:hover img {
   width: 25px;
 }
